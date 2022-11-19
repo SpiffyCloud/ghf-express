@@ -1,25 +1,71 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, onUpdated, ref, watch } from 'vue';
+import { Preferences } from '@capacitor/preferences';
+import { Dialog } from '@capacitor/dialog';
 import JsBarcode from 'jsbarcode';
 
-onMounted(() => {
-  const membershipID = "288936";
-  JsBarcode("#barcode", membershipID, {
-    format: "CODE39",
-    width: 2,
-    height: 100,
-    displayValue: true,
-    fontOptions: "",
-    font: "monospace",
-    textAlign: "center",
-    textPosition: "top",
-    textMargin: 2,
-    fontSize: 20,
-    background: "#ffffff",
-    lineColor: "#000000",
-    margin: 10,
-  });
+"use strict";
+
+const barcode = ref(null);
+
+onMounted(async () => {
+  loadBarcode();
 });
+
+watch(barcode, renderBarcode, { flush: 'post' })
+
+async function loadBarcode() {
+  const { value } = await Preferences.get({ key: 'barcode' });
+  if (value) {
+    barcode.value = value;
+  }
+}
+
+async function saveBarcode() {
+  await Preferences.set({ key: 'barcode', value: barcode.value });
+}
+
+async function deleteBarcode() {
+  barcode.value = null;
+  await Preferences.remove({ key: 'barcode' });
+}
+
+async function askForBarcode() {
+  const { value } = await Dialog.prompt({
+    message: `What's membership number?`,
+  });
+  // test value exists and its six digits
+  if (value && /^\d{6}$/.test(value)) {
+    barcode.value = value;
+    saveBarcode();
+  }
+  else {
+    await Dialog.alert({
+      message: `Invalid membership number`,
+    });
+  }
+}
+
+// function to generate barcode
+function renderBarcode() {
+  if (barcode.value) {
+    JsBarcode('#barcode', barcode.value, {
+      format: "CODE39",
+      width: 2,
+      height: 100,
+      displayValue: true,
+      fontOptions: "",
+      font: "monospace",
+      textAlign: "center",
+      textPosition: "top",
+      textMargin: 2,
+      fontSize: 20,
+      background: "#ffffff",
+      lineColor: "#000000",
+      margin: 10,
+    });
+  }
+};
 </script>
 
 <template>
@@ -27,78 +73,76 @@ onMounted(() => {
     <h1>GHF Express</h1>
   </header>
 
-  <main>
+  <main v-if="!barcode">
+    <button @click="askForBarcode">Enter Barcode</button>
+  </main>
+
+  <main v-else>
     <p>Scan this card to check into the club</p>
     <div id="barcode-container">
       <img id="barcode" />
     </div>
-    <button>Delete Barcode</button>
+    <button @click="deleteBarcode">Delete Barcode</button>
   </main>
 
   <footer>
-    <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">GHF Express v1.0.0 | Made by SpiffyCloud</a>
+    <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">GHF Express v1.0.0 | SpiffyCloud</a>
   </footer>
 </template>
 
 <style>
 body {
+  background-color: #5DBB61;
   padding: 0;
   margin: 0;
-  width: 100vw;
-  height: 100vh;
 }
 
 #app {
   font-family: sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: white;
   background-color: #093565;
-  height: 100%;
+  color: white;
+  height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
+  margin-top: 2rem;
 }
 
 h1 {
-  color: white;
   background-color: #5DBB61;
   margin: 0;
-  padding: 1rem;
+  padding: .5rem;
 }
 
 main {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
   flex-grow: 1;
 }
 
 #barcode-container {
-  width: calc(100% - 4rem);
-  max-width: 20rem;
-  height: 10rem;
   background-color: white;
   margin: 0 auto;
   border-radius: .5rem;
   padding: .5rem;
+  width: calc(100% - 4rem);
+  max-width: 20rem;
 }
 
 #barcode-container img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
 }
 
 button {
   background-color: indianred;
   border: none;
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-  margin: 0 auto;
   color: inherit;
+  font-size: 1rem;
   border-radius: .5rem;
+  padding: 1rem 1.5rem;
+  margin: 0 auto;
 }
 
 a {
@@ -107,6 +151,6 @@ a {
   width: 100%;
   font-size: .75rem;
   text-decoration: none;
-  margin: .75rem auto;
+  margin: 1.5rem auto;
 }
 </style>

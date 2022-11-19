@@ -1,0 +1,6 @@
+{
+  "appId": "net.myusc.ghfexpress",
+  "appName": "GHF Express",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

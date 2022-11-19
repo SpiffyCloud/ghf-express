@@ -7,10 +7,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^4.5.0",
+    "@capacitor/core": "^4.5.0",
+    "@capacitor/dialog": "^4.1.0",
+    "@capacitor/ios": "^4.5.0",
+    "@capacitor/preferences": "^4.0.2",
+    "@capacitor/splash-screen": "^4.1.2",
     "jsbarcode": "^3.11.5",
     "vue": "^3.2.41"
   },
   "devDependencies": {
+    "@capacitor/cli": "^4.5.0",
     "@vitejs/plugin-vue": "^3.1.2",
     "vite": "^3.1.8"
   }
