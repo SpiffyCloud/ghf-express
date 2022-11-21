@@ -1,8 +1,12 @@
 <script setup>
-import { onMounted, onUpdated, ref, watch } from 'vue';
-import { Preferences } from '@capacitor/preferences';
-import { Dialog } from '@capacitor/dialog';
-import JsBarcode from 'jsbarcode';
+import { onMounted, onUpdated, ref, watch } from 'vue'
+import { Preferences } from '@capacitor/preferences'
+import { Dialog } from '@capacitor/dialog'
+import JsBarcode from 'jsbarcode'
+import GraphicBottomBottom from '@/components/graphics/GraphicBottomBottom.vue'
+import GraphicBottomTop from '@/components/graphics/GraphicBottomTop.vue'
+import GraphicTopBottom from '@/components/graphics/GraphicTopBottom.vue'
+import GraphicTopTop from '@/components/graphics/GraphicTopTop.vue'
 
 "use strict";
 
@@ -88,19 +92,25 @@ function renderBarcode() {
   <footer>
     <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">GHF Express v1.0.0 | SpiffyCloud</a>
   </footer>
+
+  <div class="theme">
+    <GraphicTopBottom/>
+    <GraphicTopTop/>
+    <GraphicBottomBottom/>
+    <GraphicBottomTop/>
+  </div>
 </template>
 
 <style>
 body {
-  background-color: #5DBB61;
   padding: 0;
   margin: 0;
+  background-color: #093565;
 }
 
 #app {
   font-family: sans-serif;
   text-align: center;
-  background-color: #093565;
   color: white;
   height: calc(100vh - 2rem);
   display: flex;
@@ -109,7 +119,6 @@ body {
 }
 
 h1 {
-  background-color: #5DBB61;
   margin: 0;
   padding: .5rem;
 }
@@ -152,5 +161,38 @@ a {
   font-size: .75rem;
   text-decoration: none;
   margin: 1.5rem auto;
+}
+
+.theme svg {
+  position: absolute;
+  z-index: -1;
+  height: min-content;
+  width: max-content;
+}
+
+.top-top, .top-bottom {
+  top: 0;
+  left: 0;
+}
+
+.top-top {
+  max-width: 48%;
+}
+
+.top-bottom {
+  max-width: 67%;
+}
+
+.bottom-top, .bottom-bottom {
+  bottom: 0;
+  right: 0;
+}
+
+.bottom-bottom {
+  max-width: 84%;
+}
+
+.bottom-top {
+  max-width: 56%;
 }
 </style>
