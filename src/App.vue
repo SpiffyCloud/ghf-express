@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUpdated, ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import { Preferences } from '@capacitor/preferences'
 import { Dialog } from '@capacitor/dialog'
 import JsBarcode from 'jsbarcode'
@@ -8,13 +8,29 @@ import GraphicBottomTop from '@/components/graphics/GraphicBottomTop.vue'
 import GraphicTopBottom from '@/components/graphics/GraphicTopBottom.vue'
 import GraphicTopTop from '@/components/graphics/GraphicTopTop.vue'
 
-"use strict";
+'use strict'
 
-const barcode = ref(null);
+const barcode = ref(null)
+
+function keyEntered(event) {
+  if (barcode.value) {
+    barcode.value += event.target.textContent
+  } else {
+    barcode.value = event.target.textContent
+  }
+}
+
+function backspace() {
+  barcode.value = barcode.value.slice(0,-1)
+}
 
 onMounted(async () => {
   loadBarcode();
 });
+
+const barcodeIsAcceptable = computed(() => {
+  return barcode.value && barcode.value.length === 6
+})
 
 watch(barcode, renderBarcode, { flush: 'post' })
 
@@ -34,25 +50,9 @@ async function deleteBarcode() {
   await Preferences.remove({ key: 'barcode' });
 }
 
-async function askForBarcode() {
-  const { value } = await Dialog.prompt({
-    message: `What's membership number?`,
-  });
-  // test value exists and its six digits
-  if (value && /^\d{6}$/.test(value)) {
-    barcode.value = value;
-    saveBarcode();
-  }
-  else {
-    await Dialog.alert({
-      message: `Invalid membership number`,
-    });
-  }
-}
-
 // function to generate barcode
 function renderBarcode() {
-  if (barcode.value) {
+  if (barcodeIsAcceptable.value) {
     JsBarcode('#barcode', barcode.value, {
       format: "CODE39",
       width: 2,
@@ -68,6 +68,7 @@ function renderBarcode() {
       lineColor: "#000000",
       margin: 10,
     });
+    saveBarcode()
   }
 };
 </script>
@@ -75,19 +76,49 @@ function renderBarcode() {
 <template>
   <header>
     <h1>GHF Express</h1>
+    {{ barcode }}
   </header>
 
-  <main v-if="!barcode">
-    <button @click="askForBarcode">Enter Barcode</button>
-  </main>
-
-  <main v-else>
+  <main v-if="barcodeIsAcceptable">
     <p>Scan this card to check into the club</p>
     <div id="barcode-container">
       <img id="barcode" />
     </div>
     <button @click="deleteBarcode">Delete Barcode</button>
   </main>
+
+  <main v-else>
+    <div class="keypad">
+      <div class="keypad__screen" v-for="(digit, index) in barcode" :key="index">
+        {{ digit }}
+      </div>
+    </div>
+    <table>
+      <tr>
+        <td><button @click="keyEntered">1</button></td>
+        <td><button @click="keyEntered">2</button></td>
+        <td><button @click="keyEntered">3</button></td>
+      </tr>
+      <tr>
+        <td><button @click="keyEntered">4</button></td>
+        <td><button @click="keyEntered">5</button></td>
+        <td><button @click="keyEntered">6</button></td>
+      </tr>
+      <tr>
+        <td><button @click="keyEntered">7</button></td>
+        <td><button @click="keyEntered">8</button></td>
+        <td><button @click="keyEntered">9</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button @click="keyEntered">0</button></td>
+        <td><button @click="backspace">del</button></td>
+      </tr>
+    </table>
+    <button @click="deleteBarcode">Enter Barcode</button>
+  </main>
+
+  
 
   <footer>
     <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">GHF Express v1.0.0 | SpiffyCloud</a>
@@ -128,6 +159,20 @@ main {
   flex-direction: column;
   justify-content: space-evenly;
   flex-grow: 1;
+}
+
+.keypad {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.keypad__screen {
+  background-color: white;
+  color: #093565;
+  padding: 1rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 #barcode-container {
