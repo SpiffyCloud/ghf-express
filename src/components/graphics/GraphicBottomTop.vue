@@ -3,3 +3,11 @@
     <path d="M608 401V0C271.764 0 86.3516 126.241 0 401H608Z" fill="var(--theme-top)"/>
   </svg>
 </template>
+
+<style>
+.bottom-top {
+  bottom: 0;
+  right: 0;
+  max-width: 56%;
+}
+</style>
