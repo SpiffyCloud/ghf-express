@@ -26,6 +26,7 @@ const emit = defineEmits('delete')
   padding: .5rem;
   width: calc(100% - 4rem);
   max-width: 20rem;
+  box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.4);
 }
 
 .barcode-sticker svg {

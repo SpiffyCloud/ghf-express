@@ -118,7 +118,7 @@ async function deleteBarcode() {
 :root {
   --color-primary: #093565;
   --color-secondary: white;
-  --color-field: rgba(255, 255, 255, .05);
+  --color-field: #072d54;
   --color-button: rgba(255, 255, 255, .25);
   --color-button-press: rgba(255, 255, 255, .5);
   --color-danger: indianred;
@@ -146,7 +146,7 @@ body {
 
 h1 {
   margin: 0;
-  padding: .5rem;
+  padding-top: 2rem;
 }
 
 p {

@@ -49,6 +49,7 @@ function keyEntered(event) {
   color: inherit;
   border-radius: .5rem;
   background-color: var(--color-field);
+  box-shadow: inset 0px 6px 8px rgba(0, 0, 0, 0.4);
   font-size: 3rem;
   width: 3.25rem;
   height: 4.5rem;
