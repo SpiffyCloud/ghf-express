@@ -42,6 +42,7 @@ function keyEntered(event) {
   flex-direction: row;
   gap: .25rem;
   justify-content: center;
+  padding: 0 1rem;
 }
 
 .digits-text {
