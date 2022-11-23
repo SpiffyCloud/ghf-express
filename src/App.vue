@@ -180,7 +180,7 @@ main {
 
 a {
   display: block;
-  color: inherit;
+  color: var(--color-button-press);
   width: 100%;
   font-size: .75rem;
   text-decoration: none;
