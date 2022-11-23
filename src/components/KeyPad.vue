@@ -1,53 +1,55 @@
 <script setup>
-import { computed } from '@vue/reactivity';
-const emit = defineEmits([ 'key', 'backspace' ])
-const props = defineProps(['barcode', 'barcodeIndex'])
+import { computed } from "@vue/reactivity";
+const emit = defineEmits(["key", "backspace"]);
+const props = defineProps(["barcode", "barcodeIndex"]);
 
-const disableBackspace = computed(() => props.barcodeIndex === 0)
+const disableBackspace = computed(() => props.barcodeIndex === 0);
 
 function keyEntered(event) {
-  emit('key', event.target.textContent)
+  emit("key", event.target.textContent);
 }
 </script>
 
 <template>
-<div class="digits">
-  <div class="digits-text" v-for="(digit, index) in barcode" :key="index">
-    {{ digit }}
+  <div class="digits">
+    <div class="digits-text" v-for="(digit, index) in barcode" :key="index">
+      {{ digit }}
+    </div>
   </div>
-</div>
-<div class="keypad">
-  <div @click="keyEntered" class="keypad__key">1</div>
-  <div @click="keyEntered" class="keypad__key">2</div>
-  <div @click="keyEntered" class="keypad__key">3</div>
-  <div @click="keyEntered" class="keypad__key">4</div>
-  <div @click="keyEntered" class="keypad__key">5</div>
-  <div @click="keyEntered" class="keypad__key">6</div>
-  <div @click="keyEntered" class="keypad__key">7</div>
-  <div @click="keyEntered" class="keypad__key">8</div>
-  <div @click="keyEntered" class="keypad__key">9</div>
-  <div class="keypad__key empty"></div>
-  <div @click="keyEntered" class="keypad__key">0</div>
-  <div
-    @click="emit('backspace')"
-    :class="{ disabled: disableBackspace }"
-    class="keypad__key backspace"
-  >&#9003;</div>
-</div>
+  <div class="keypad">
+    <div @click="keyEntered" class="keypad__key">1</div>
+    <div @click="keyEntered" class="keypad__key">2</div>
+    <div @click="keyEntered" class="keypad__key">3</div>
+    <div @click="keyEntered" class="keypad__key">4</div>
+    <div @click="keyEntered" class="keypad__key">5</div>
+    <div @click="keyEntered" class="keypad__key">6</div>
+    <div @click="keyEntered" class="keypad__key">7</div>
+    <div @click="keyEntered" class="keypad__key">8</div>
+    <div @click="keyEntered" class="keypad__key">9</div>
+    <div class="keypad__key empty"></div>
+    <div @click="keyEntered" class="keypad__key">0</div>
+    <div
+      @click="emit('backspace')"
+      :class="{ disabled: disableBackspace }"
+      class="keypad__key backspace"
+    >
+      &#9003;
+    </div>
+  </div>
 </template>
 
 <style>
 .digits {
   display: flex;
   flex-direction: row;
-  gap: .25rem;
+  gap: 0.25rem;
   justify-content: center;
   padding: 0 1rem;
 }
 
 .digits-text {
   color: inherit;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background-color: var(--color-field);
   box-shadow: inset 0px 6px 8px rgba(0, 0, 0, 0.4);
   font-size: 3rem;
@@ -71,21 +73,22 @@ function keyEntered(event) {
   min-height: 10rem;
   max-height: 50vh;
   max-width: 50rem;
-  padding: .25rem;
+  padding: 0.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: .25rem .25rem;
+  gap: 0.25rem 0.25rem;
 }
 
 .keypad__key {
   font-size: 2.5rem;
   background-color: var(--color-button);
   backdrop-filter: blur(1rem);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  transition: background ease-out 100ms;
 }
 
 .keypad__key:active {
@@ -93,15 +96,15 @@ function keyEntered(event) {
 }
 
 .keypad__key.empty,
-.keypad__key.backspace  {
-  font-size: 1.25rem;
+.keypad__key.backspace {
+  font-size: 2rem;
   background: none;
   backdrop-filter: none;
 }
 
 .keypad__key.backspace.disabled {
   pointer-events: none;
-  color: var(--color-button-press)
+  color: var(--color-button-press);
 }
 
 .backspace:active {

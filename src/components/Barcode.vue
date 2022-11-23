@@ -1,14 +1,14 @@
 <script setup>
-const emit = defineEmits('delete')
+const emit = defineEmits("delete");
 </script>
 
 <template>
-<div class="barcode-container">
-  <div class="barcode-sticker">
-    <svg class="barcode"></svg>
+  <div class="barcode-container">
+    <div class="barcode-sticker">
+      <svg class="barcode"></svg>
+    </div>
   </div>
-</div>
-<button @click="emit('delete')" class="button">Delete</button>
+  <button @click="emit('delete')" class="button">Delete</button>
 </template>
 
 <style>
@@ -22,8 +22,8 @@ const emit = defineEmits('delete')
 .barcode-sticker {
   background-color: var(--color-secondary);
   margin: 0 auto;
-  border-radius: .5rem;
-  padding: .5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
   width: calc(100% - 4rem);
   max-width: 20rem;
   box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.4);
@@ -40,10 +40,11 @@ const emit = defineEmits('delete')
   background-color: transparent;
   border: none;
   font-size: 1rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem 2rem;
   margin: 0 auto;
   margin-bottom: 2rem;
+  transition: background ease-out 100ms;
 }
 
 .button:active {

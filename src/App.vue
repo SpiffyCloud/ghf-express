@@ -1,61 +1,61 @@
 <script setup>
-import { onMounted, ref, watch, computed } from 'vue'
-import { Preferences } from '@capacitor/preferences'
-import JsBarcode from 'jsbarcode'
-import Barcode from '@/components/Barcode.vue'
-import KeyPad from '@/components/KeyPad.vue'
-import GraphicBottomBottom from '@/components/graphics/GraphicBottomBottom.vue'
-import GraphicBottomTop from '@/components/graphics/GraphicBottomTop.vue'
-import GraphicTopBottom from '@/components/graphics/GraphicTopBottom.vue'
-import GraphicTopTop from '@/components/graphics/GraphicTopTop.vue'
+import { onMounted, ref, watch, computed } from "vue";
+import { Preferences } from "@capacitor/preferences";
+import JsBarcode from "jsbarcode";
+import Barcode from "@/components/Barcode.vue";
+import KeyPad from "@/components/KeyPad.vue";
+import GraphicBottomBottom from "@/components/graphics/GraphicBottomBottom.vue";
+import GraphicBottomTop from "@/components/graphics/GraphicBottomTop.vue";
+import GraphicTopBottom from "@/components/graphics/GraphicTopBottom.vue";
+import GraphicTopTop from "@/components/graphics/GraphicTopTop.vue";
 
 onMounted(async () => {
   loadBarcode();
 });
 
-const barcode = ref(Array(6))
-const barcodeIndex = ref(0)
+const barcode = ref(Array(6));
+const barcodeIndex = ref(0);
 
 function keyEntered(key) {
-  barcode.value[barcodeIndex.value] = key
-  barcodeIndex.value++
+  barcode.value[barcodeIndex.value] = key;
+  barcodeIndex.value++;
 }
 
 function backspace() {
   if (barcodeIndex.value !== 0) {
-    barcodeIndex.value--
+    barcodeIndex.value--;
   }
-  barcode.value[barcodeIndex.value] = undefined
+  barcode.value[barcodeIndex.value] = undefined;
 }
 
 const barcodeIsValid = computed(() => {
-  return !barcode.value.includes(undefined)
-})
+  return !barcode.value.includes(undefined);
+});
 
 const membershipId = computed(() => {
-  return barcode.value.toString().replaceAll(',', '')
-})
+  return barcode.value.toString().replaceAll(",", "");
+});
 
 const instructions = computed(() => {
-  if(barcodeIsValid.value) {
-    return 'Scan the barcode to check into the club'
+  if (barcodeIsValid.value) {
+    return "Scan the barcode to check into the club";
   }
-  return 'Enter your 6 digit membership ID'
-})
+  return "Enter your 6 digit membership ID";
+});
 
 const barcodeHeight = computed(() => {
   if (window.innerHeight >= 896) {
-    return 150
+    return 150;
   }
-  return 100
-})
+  return 100;
+});
 
-watch(barcodeIsValid, renderBarcode, { flush: 'post' })
+watch(barcodeIsValid, renderBarcode, { flush: "post" });
 
 // function to generate barcode
 function renderBarcode() {
   if (barcodeIsValid.value) {
-    JsBarcode('.barcode', membershipId.value, {
+    JsBarcode(".barcode", membershipId.value, {
       format: "CODE39",
       width: 2,
       height: barcodeHeight.value,
@@ -70,55 +70,59 @@ function renderBarcode() {
       lineColor: "var(--color-primary)",
       margin: 10,
     });
-    saveBarcode()
+    saveBarcode();
   }
-};
+}
 
 async function loadBarcode() {
-  const { value } = await Preferences.get({ key: 'barcode' });
+  const { value } = await Preferences.get({ key: "barcode" });
   if (value) {
-    barcode.value = value
+    barcode.value = value;
   }
 }
 
 async function saveBarcode() {
-  await Preferences.set({ key: 'barcode', value: membershipId.value })
+  await Preferences.set({ key: "barcode", value: membershipId.value });
 }
 
 async function deleteBarcode() {
-  barcode.value = Array(6)
-  barcodeIndex.value = 0
-  await Preferences.remove({ key: 'barcode' })
+  barcode.value = Array(6);
+  barcodeIndex.value = 0;
+  await Preferences.remove({ key: "barcode" });
 }
 </script>
 
 <template>
-<header>
-  <h1>GHF Express</h1>
-</header>
+  <header>
+    <h1>GHF Express</h1>
+  </header>
 
-<main>
-  <p>{{ instructions }}</p>
-  <Barcode v-if="barcodeIsValid" @delete="deleteBarcode"/>
-  <KeyPad
-    v-else
-    :barcode="barcode"
-    :barcodeIndex="barcodeIndex"
-    @backspace="backspace"
-    @key="keyEntered"
-  />
-</main>
+  <main>
+    <p>{{ instructions }}</p>
+    <Transition name="push">
+      <Barcode v-if="barcodeIsValid" @delete="deleteBarcode" />
+      <KeyPad
+        v-else
+        :barcode="barcode"
+        :barcodeIndex="barcodeIndex"
+        @backspace="backspace"
+        @key="keyEntered"
+      />
+    </Transition>
+  </main>
 
-<footer>
-  <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">GHF Express v1.0.0 | SpiffyCloud</a>
-</footer>
+  <footer>
+    <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank"
+      >GHF Express v1.0.0 | SpiffyCloud</a
+    >
+  </footer>
 
-<div class="theme">
-  <GraphicTopBottom/>
-  <GraphicTopTop/>
-  <GraphicBottomBottom/>
-  <GraphicBottomTop/>
-</div>
+  <div class="theme">
+    <GraphicTopBottom />
+    <GraphicTopTop />
+    <GraphicBottomBottom />
+    <GraphicBottomTop />
+  </div>
 </template>
 
 <style>
@@ -126,12 +130,12 @@ async function deleteBarcode() {
   --color-primary: #093565;
   --color-secondary: white;
   --color-field: #072d54;
-  --color-button: rgba(255, 255, 255, .25);
-  --color-button-press: rgba(255, 255, 255, .5);
+  --color-button: rgba(255, 255, 255, 0.25);
+  --color-button-press: rgba(255, 255, 255, 0.5);
   --color-danger: indianred;
   --color-button-danger: rgba(205, 92, 92, 0.5);
-  --theme-top: #0046AD;
-  --theme-bottom: #04387C;
+  --theme-top: #0046ad;
+  --theme-bottom: #04387c;
 }
 
 body {
@@ -182,15 +186,42 @@ a {
   display: block;
   color: var(--color-button-press);
   width: 100%;
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-decoration: none;
   margin: 1.5rem auto;
 }
 
+.theme {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
 .theme svg {
   position: absolute;
-  height: min-content;
-  width: max-content;
-  z-index: -1;
+}
+
+.push-enter-from {
+  opacity: 0;
+}
+
+.push-enter-to {
+  opacity: 1;
+}
+.push-enter-active {
+  transition: all ease-out 3s;
+}
+
+.push-leave-from {
+  opacity: 1;
+}
+
+.push-leave-to {
+  opacity: 0;
+}
+
+.push-leave-active {
+  transition: all ease-out 3s;
 }
 </style>
