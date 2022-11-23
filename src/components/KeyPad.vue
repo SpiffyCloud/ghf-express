@@ -58,6 +58,14 @@ function keyEntered(event) {
   align-items: center;
 }
 
+@media screen and (min-height: 896px) {
+  .digits-text {
+    font-size: 3.5rem;
+    width: 4rem;
+    height: 5rem;
+  }
+}
+
 .keypad {
   height: 33vh;
   min-height: 10rem;

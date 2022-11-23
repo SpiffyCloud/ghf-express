@@ -36,6 +36,7 @@ const emit = defineEmits('delete')
 
 .button {
   color: var(--color-danger);
+  font-family: inherit;
   background-color: transparent;
   border: none;
   font-size: 1rem;

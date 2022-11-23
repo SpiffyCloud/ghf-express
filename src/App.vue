@@ -43,6 +43,13 @@ const instructions = computed(() => {
   return 'Enter your 6 digit membership ID'
 })
 
+const barcodeHeight = computed(() => {
+  if (window.innerHeight >= 896) {
+    return 150
+  }
+  return 100
+})
+
 watch(barcodeIsValid, renderBarcode, { flush: 'post' })
 
 // function to generate barcode
@@ -51,13 +58,13 @@ function renderBarcode() {
     JsBarcode('.barcode', membershipId.value, {
       format: "CODE39",
       width: 2,
-      height: 100,
+      height: barcodeHeight.value,
       displayValue: true,
       fontOptions: "",
       font: "sans-serif",
       textAlign: "center",
       textPosition: "bottom",
-      textMargin: 4,
+      textMargin: 5,
       fontSize: 20,
       background: "var(--color-secondary)",
       lineColor: "var(--color-primary)",
@@ -134,7 +141,7 @@ body {
 }
 
 #app {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
   color: var(--color-secondary);
   height: calc(100vh - 2rem);
@@ -151,6 +158,17 @@ h1 {
 
 p {
   padding-top: 4rem;
+}
+
+@media screen and (min-height: 896px) {
+  h1 {
+    padding-top: 4rem;
+  }
+
+  p {
+    padding-top: 6rem;
+    font-size: 1.25rem;
+  }
 }
 
 main {
@@ -171,34 +189,8 @@ a {
 
 .theme svg {
   position: absolute;
-  z-index: -1;
   height: min-content;
   width: max-content;
-}
-
-.top-top, .top-bottom {
-  top: 0;
-  left: 0;
-}
-
-.top-top {
-  max-width: 48%;
-}
-
-.top-bottom {
-  max-width: 67%;
-}
-
-.bottom-top, .bottom-bottom {
-  bottom: 0;
-  right: 0;
-}
-
-.bottom-bottom {
-  max-width: 84%;
-}
-
-.bottom-top {
-  max-width: 56%;
+  z-index: -1;
 }
 </style>
