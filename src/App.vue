@@ -53,24 +53,22 @@ function backspace() {
     <h1>GHF Express</h1>
   </header>
 
-  <main>
-    <Transition :name="hasBarcode ? '' : 'fade'" mode="out-in">
-      <Barcode
-        v-if="barcodeIsValid"
-        instructions="Scan the barcode to check into the club"
-        :barcode="barcode"
-        @delete="deleteBarcode"
-      />
-      <KeyPad
-        v-else
-        instructions="Enter your 6-digit membership ID"
-        :barcode="barcode"
-        :barcodeIndex="barcodeIndex"
-        @backspace="backspace"
-        @key="keyEntered"
-      />
-    </Transition>
-  </main>
+  <Transition :name="hasBarcode ? '' : 'fade'" mode="out-in">
+    <Barcode
+      v-if="barcodeIsValid"
+      instructions="Scan the barcode to check into the club"
+      :barcode="barcode"
+      @delete="deleteBarcode"
+    />
+    <KeyPad
+      v-else
+      instructions="Enter your 6-digit membership ID"
+      :barcode="barcode"
+      :barcodeIndex="barcodeIndex"
+      @backspace="backspace"
+      @key="keyEntered"
+    />
+  </Transition>
 
   <footer>
     <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">
