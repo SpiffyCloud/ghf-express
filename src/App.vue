@@ -99,16 +99,14 @@ async function deleteBarcode() {
 
   <main>
     <p>{{ instructions }}</p>
-    <Transition name="push">
-      <Barcode v-if="barcodeIsValid" @delete="deleteBarcode" />
-      <KeyPad
-        v-else
-        :barcode="barcode"
-        :barcodeIndex="barcodeIndex"
-        @backspace="backspace"
-        @key="keyEntered"
-      />
-    </Transition>
+    <Barcode v-if="barcodeIsValid" @delete="deleteBarcode" />
+    <KeyPad
+      v-else
+      :barcode="barcode"
+      :barcodeIndex="barcodeIndex"
+      @backspace="backspace"
+      @key="keyEntered"
+    />
   </main>
 
   <footer>
@@ -185,7 +183,7 @@ main {
 a {
   display: block;
   color: var(--color-button-press);
-  width: 100%;
+  width: 50%;
   font-size: 0.75rem;
   text-decoration: none;
   margin: 1.5rem auto;
@@ -202,26 +200,32 @@ a {
   position: absolute;
 }
 
-.push-enter-from {
+.fade-enter-active {
+  transition-delay: 500ms;
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
-.push-enter-to {
-  opacity: 1;
-}
-.push-enter-active {
-  transition: all ease-out 3s;
+.push-enter-active,
+.push-leave-active {
+  transition: all 0.5s ease-out;
 }
 
-.push-leave-from {
-  opacity: 1;
+.push-enter-from {
+  opacity: 0;
+  transform: translateX(6rem);
 }
 
 .push-leave-to {
   opacity: 0;
-}
-
-.push-leave-active {
-  transition: all ease-out 3s;
+  transform: translateX(-6rem);
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-const emit = defineEmits("delete");
+const emit = defineEmits(["delete"]);
 </script>
 
 <template>
@@ -49,5 +49,11 @@ const emit = defineEmits("delete");
 
 .button:active {
   background-color: var(--color-button-danger);
+}
+
+@media screen and (min-height: 896px) {
+  .button {
+    font-size: 1.25rem;
+  }
 }
 </style>

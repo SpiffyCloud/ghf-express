@@ -73,6 +73,9 @@ function keyEntered(event) {
   min-height: 10rem;
   max-height: 50vh;
   max-width: 50rem;
+  width: calc(100% - 1rem);
+  justify-self: center;
+  margin: 0 auto;
   padding: 0.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -97,7 +100,6 @@ function keyEntered(event) {
 
 .keypad__key.empty,
 .keypad__key.backspace {
-  font-size: 2rem;
   background: none;
   backdrop-filter: none;
 }
@@ -109,5 +111,11 @@ function keyEntered(event) {
 
 .backspace:active {
   background: var(--color-danger);
+}
+
+@media screen and (max-height: 896px) {
+  .keypad__key.backspace {
+    font-size: 2rem;
+  }
 }
 </style>
