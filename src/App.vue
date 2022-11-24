@@ -16,17 +16,24 @@ async function loadBarcode() {
   const { value } = await Preferences.get({ key: "barcode" });
   if (value) {
     barcode.value = value;
+    hasBarcode.value = true;
   }
 }
 
 async function deleteBarcode() {
   barcode.value = Array(6);
   barcodeIndex.value = 0;
+  hasBarcode.value = false;
   await Preferences.remove({ key: "barcode" });
 }
 
+const hasBarcode = ref(false);
 const barcode = ref(Array(6));
 const barcodeIndex = ref(0);
+
+const barcodeIsValid = computed(() => {
+  return !barcode.value.includes(undefined);
+});
 
 function keyEntered(key) {
   barcode.value[barcodeIndex.value] = key;
@@ -39,10 +46,6 @@ function backspace() {
   }
   barcode.value[barcodeIndex.value] = undefined;
 }
-
-const barcodeIsValid = computed(() => {
-  return !barcode.value.includes(undefined);
-});
 </script>
 
 <template>
@@ -51,7 +54,7 @@ const barcodeIsValid = computed(() => {
   </header>
 
   <main>
-    <Transition name="fade" mode="out-in">
+    <Transition :name="hasBarcode ? '' : 'fade'" mode="out-in">
       <Barcode
         v-if="barcodeIsValid"
         instructions="Scan the barcode to check into the club"
@@ -70,9 +73,9 @@ const barcodeIsValid = computed(() => {
   </main>
 
   <footer>
-    <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank"
-      >GHF Express v1.0.0 | SpiffyCloud</a
-    >
+    <a href="https://github.com/SpiffyCloud/ghf-express" target="_blank">
+      GHF Express v1.0.0 | SpiffyCloud
+    </a>
   </footer>
 
   <div class="theme">
