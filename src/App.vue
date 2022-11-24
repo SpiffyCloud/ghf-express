@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref, watch, computed } from "vue";
 import { Preferences } from "@capacitor/preferences";
-import JsBarcode from "jsbarcode";
 import Barcode from "@/components/Barcode.vue";
 import KeyPad from "@/components/KeyPad.vue";
 import GraphicBottomBottom from "@/components/graphics/GraphicBottomBottom.vue";
@@ -12,6 +11,19 @@ import GraphicTopTop from "@/components/graphics/GraphicTopTop.vue";
 onMounted(async () => {
   loadBarcode();
 });
+
+async function loadBarcode() {
+  const { value } = await Preferences.get({ key: "barcode" });
+  if (value) {
+    barcode.value = value;
+  }
+}
+
+async function deleteBarcode() {
+  barcode.value = Array(6);
+  barcodeIndex.value = 0;
+  await Preferences.remove({ key: "barcode" });
+}
 
 const barcode = ref(Array(6));
 const barcodeIndex = ref(0);
@@ -31,65 +43,6 @@ function backspace() {
 const barcodeIsValid = computed(() => {
   return !barcode.value.includes(undefined);
 });
-
-const membershipId = computed(() => {
-  return barcode.value.toString().replaceAll(",", "");
-});
-
-const instructions = computed(() => {
-  if (barcodeIsValid.value) {
-    return "Scan the barcode to check into the club";
-  }
-  return "Enter your 6 digit membership ID";
-});
-
-const barcodeHeight = computed(() => {
-  if (window.innerHeight >= 896) {
-    return 150;
-  }
-  return 100;
-});
-
-watch(barcodeIsValid, renderBarcode, { flush: "post" });
-
-// function to generate barcode
-function renderBarcode() {
-  if (barcodeIsValid.value) {
-    JsBarcode(".barcode", membershipId.value, {
-      format: "CODE39",
-      width: 2,
-      height: barcodeHeight.value,
-      displayValue: true,
-      fontOptions: "",
-      font: "sans-serif",
-      textAlign: "center",
-      textPosition: "bottom",
-      textMargin: 5,
-      fontSize: 20,
-      background: "var(--color-secondary)",
-      lineColor: "var(--color-primary)",
-      margin: 10,
-    });
-    saveBarcode();
-  }
-}
-
-async function loadBarcode() {
-  const { value } = await Preferences.get({ key: "barcode" });
-  if (value) {
-    barcode.value = value;
-  }
-}
-
-async function saveBarcode() {
-  await Preferences.set({ key: "barcode", value: membershipId.value });
-}
-
-async function deleteBarcode() {
-  barcode.value = Array(6);
-  barcodeIndex.value = 0;
-  await Preferences.remove({ key: "barcode" });
-}
 </script>
 
 <template>
@@ -98,15 +51,22 @@ async function deleteBarcode() {
   </header>
 
   <main>
-    <p>{{ instructions }}</p>
-    <Barcode v-if="barcodeIsValid" @delete="deleteBarcode" />
-    <KeyPad
-      v-else
-      :barcode="barcode"
-      :barcodeIndex="barcodeIndex"
-      @backspace="backspace"
-      @key="keyEntered"
-    />
+    <Transition name="fade" mode="out-in">
+      <Barcode
+        v-if="barcodeIsValid"
+        instructions="Scan the barcode to check into the club"
+        :barcode="barcode"
+        @delete="deleteBarcode"
+      />
+      <KeyPad
+        v-else
+        instructions="Enter your 6-digit membership ID"
+        :barcode="barcode"
+        :barcodeIndex="barcodeIndex"
+        @backspace="backspace"
+        @key="keyEntered"
+      />
+    </Transition>
   </main>
 
   <footer>
@@ -158,32 +118,23 @@ h1 {
   padding-top: 2rem;
 }
 
-p {
-  padding-top: 4rem;
-}
-
 @media screen and (min-height: 896px) {
   h1 {
     padding-top: 4rem;
   }
-
-  p {
-    padding-top: 6rem;
-    font-size: 1.25rem;
-  }
 }
 
 main {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-grow: 1;
 }
 
 a {
   display: block;
   color: var(--color-button-press);
-  width: 50%;
+  width: 75%;
   font-size: 0.75rem;
   text-decoration: none;
   margin: 1.5rem auto;
@@ -200,11 +151,7 @@ a {
   position: absolute;
 }
 
-.fade-enter-active {
-  transition-delay: 500ms;
-  transition: opacity 0.5s ease-out;
-}
-
+.fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease-out;
 }
@@ -212,20 +159,5 @@ a {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-.push-enter-active,
-.push-leave-active {
-  transition: all 0.5s ease-out;
-}
-
-.push-enter-from {
-  opacity: 0;
-  transform: translateX(6rem);
-}
-
-.push-leave-to {
-  opacity: 0;
-  transform: translateX(-6rem);
 }
 </style>
