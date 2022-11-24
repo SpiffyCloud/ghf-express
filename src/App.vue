@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch, computed } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { Preferences } from "@capacitor/preferences";
 import Barcode from "@/components/Barcode.vue";
 import KeyPad from "@/components/KeyPad.vue";
