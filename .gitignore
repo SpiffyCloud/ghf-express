@@ -1,0 +1,15 @@
+# Development
+.vscode/
+
+# OS
+.DS_Store
+
+# Node modules
+node_modules/
+
+# SvelteKit build artifacts
+.svelte-kit/
+
+# Build output directories
+build/
+dist/
