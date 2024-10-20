@@ -8,8 +8,6 @@ const config: CapacitorConfig = {
     plugins: {
         SplashScreen: {
             launchAutoHide: false,
-            launchFadeOutDuration: 5000,
-            launchShowDuration: 10000,
         },
     },
     // server: {
