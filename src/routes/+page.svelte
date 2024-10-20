@@ -8,9 +8,11 @@
     import { tick, onMount } from 'svelte';
     import { SplashScreen } from "@capacitor/splash-screen";
     import { Preferences } from "@capacitor/preferences";
+    import { App } from '@capacitor/app';
 
     const initialBarcode = 'Tap to edit';
     const emptyBarcodeChar = '•';
+    let appVersion: string = $state('');
     let barcode: string = $state(initialBarcode);
     let displayBarcode = $state(true);
     let isValidBarcode = $derived(new RegExp(`^(\\d+|${emptyBarcodeChar}+)$`).test(barcode));
@@ -32,8 +34,18 @@
             barcode = initialBarcode;
             renderBarcode("CODE128", 16);
         }
+        appVersion = await getAppVersion();
         await SplashScreen.hide();
     })
+
+    async function getAppVersion() {
+        try {
+            const { version } = await App.getInfo();
+            return version;
+        } catch (error) {
+            return '?.?.?';
+        }
+    }
 
     function updateBarcode(value: string) {
         barcode = barcode.slice(0, position) + value + barcode.slice(position + 1);
@@ -153,7 +165,7 @@
                 </svg>
                 a spiffycloud project
             </a>
-            <p class="pt-3 text-sm">v1.0.0</p>
+            <p class="pt-3 text-sm">v{appVersion}</p>
         </footer>
         {:else}
         <!-- Keypad -->

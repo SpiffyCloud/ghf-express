@@ -11,6 +11,7 @@
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
     "dependencies": {
+        "@capacitor/app": "^6.0.1",
         "@capacitor/core": "^6.1.2",
         "@capacitor/ios": "^6.1.2",
         "@capacitor/preferences": "^6.0.2",
