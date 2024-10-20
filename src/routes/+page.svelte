@@ -112,7 +112,7 @@
 
     <!-- Main content -->
     <div class="z-50 relative flex flex-col items-center justify-between h-screen">
-        <header class="flex justify-center py-24">
+        <header class="flex justify-center pb-24 pt-32 -mb-14">
             <h1 class="font-bold text-3xl">GHF Express</h1>
         </header>
 
