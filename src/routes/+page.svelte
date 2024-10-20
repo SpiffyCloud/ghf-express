@@ -95,7 +95,7 @@
     }
 </script>
 
-<div class="relative w-screen h-screen bg-navy-900 text-white">
+<div class="relative w-screen h-screen bg-navy-900 text-white select-none">
     <!-- Background visuals -->
     <div class="absolute top-0 left-0 max-w-[75vw] max-h-[25vh]">
         <svg viewBox="0 0 881 540" fill="none" class="w-full" xmlns="http://www.w3.org/2000/svg">
