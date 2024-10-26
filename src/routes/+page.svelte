@@ -81,15 +81,16 @@
             JsBarcode('#barcode', barcode, {
                 format,
                 width: 2,
-                height: 124,
+                height: 110,
                 displayValue: true,
+                fontOptions: "",
                 font: "Menlo",
                 textAlign: "center",
                 textPosition: "bottom",
                 textMargin: 16,
                 fontSize,
-                background: "#093565",
-                lineColor: "white",
+                background: "white",
+                lineColor: "#093565",
                 margin: 10,
             });
 
@@ -132,7 +133,9 @@
             <!-- Barcode -->
             {#if displayBarcode}
             <button onclick="{() => displayBarcode = false}" aria-label="edit barcode" class="active:scale-95 transform ease-out touch-manipulation">
-                <svg id="barcode"></svg>
+                <div class="bg-white mx-auto rounded-md p-2 max-w-[20rem] shadow-[0px_16px_16px_rgba(0,0,0,0.4)]">
+                    <svg id="barcode" class="w-full h-full"></svg>
+                </div>
             </button>
             {:else}
             <!-- Digit Boxes -->
