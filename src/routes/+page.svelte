@@ -91,7 +91,7 @@
                 fontSize,
                 background: "white",
                 lineColor: "#093565",
-                margin: 10,
+                margin: 16,
             });
 
             const svg = document.querySelector('#barcode');
@@ -133,7 +133,7 @@
             <!-- Barcode -->
             {#if displayBarcode}
             <button onclick="{() => displayBarcode = false}" aria-label="edit barcode" class="active:scale-95 transform ease-out touch-manipulation">
-                <div class="bg-white mx-auto rounded-md p-2 max-w-[20rem] shadow-[0px_16px_16px_rgba(0,0,0,0.4)]">
+                <div class="bg-white mx-auto rounded-2xl p-2 max-w-[20rem] shadow-2xl">
                     <svg id="barcode" class="w-full h-full"></svg>
                 </div>
             </button>

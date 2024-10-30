@@ -10,10 +10,6 @@ const config: CapacitorConfig = {
             launchAutoHide: false,
         },
     },
-    // server: {
-    //     url: "http://localhost:5173",
-    //     cleartext: true
-    // },
 };
 
 export default config;
