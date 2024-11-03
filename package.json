@@ -1,6 +1,6 @@
 {
     "name": "ghf-express",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": true,
     "type": "module",
     "scripts": {
@@ -11,6 +11,7 @@
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
     "dependencies": {
+        "@capacitor-community/firebase-analytics": "^6.0.0",
         "@capacitor/app": "^6.0.1",
         "@capacitor/core": "^6.1.2",
         "@capacitor/ios": "^6.1.2",
