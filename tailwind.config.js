@@ -5,7 +5,7 @@ const MEDIUM = "#04387C"
 const LIGHT = "#0046AD"
 
 export default {
-    content: ['./src/**/*.{html,js,svelte,ts}'],
+    content: ['./src/**/*.{html,js,svelte,ts}', './server-side/partials/**/*.html'],
     theme: {
         extend: {
             colors: {
