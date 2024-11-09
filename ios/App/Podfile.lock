@@ -11,6 +11,8 @@ PODS:
   - CapacitorCordova (6.1.2)
   - CapacitorPreferences (6.0.2):
     - Capacitor
+  - CapacitorShare (6.0.2):
+    - Capacitor
   - CapacitorSplashScreen (6.0.2):
     - Capacitor
   - FirebaseAnalytics (11.4.0):
@@ -103,6 +105,7 @@ DEPENDENCIES:
   - "CapacitorCommunityFirebaseAnalytics (from `../../node_modules/@capacitor-community/firebase-analytics`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
+  - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
 
 SPEC REPOS:
@@ -129,6 +132,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorPreferences:
     :path: "../../node_modules/@capacitor/preferences"
+  CapacitorShare:
+    :path: "../../node_modules/@capacitor/share"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
 
@@ -139,6 +144,7 @@ SPEC CHECKSUMS:
   CapacitorCommunityFirebaseAnalytics: dd31faa0a3e6f4d00624080ee5b9439b484cd092
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
   CapacitorPreferences: e8284bf740cf8c6d3f25409af3c01df87dfeb5a1
+  CapacitorShare: 591ae4693d85686ceb590db8e8b44aa014ec6490
   CapacitorSplashScreen: 250df9ef8014fac5c7c1fd231f0f8b1d8f0b5624
   FirebaseAnalytics: 3feef9ae8733c567866342a1000691baaa7cad49
   FirebaseCore: 6b32c57269bd999aab34354c3923d92a6e5f3f84
@@ -149,6 +155,6 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
 
-PODFILE CHECKSUM: d655e8fe6e9104b67647526c72dc2dd920fb264d
+PODFILE CHECKSUM: cb1e72235bf1f0d298fc0a270354d8a4b96915e6
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2

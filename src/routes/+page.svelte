@@ -10,6 +10,7 @@
     import { Preferences } from "@capacitor/preferences";
     import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
     import { App } from "@capacitor/app";
+    import { Share } from "@capacitor/share";
 
     const initialBarcode = "";
     const emptyBarcodeChar = "•";
@@ -134,6 +135,18 @@
             await deleteBarcode();
         }
     }
+
+    async function shareApp() {
+        try {
+            await Share.share({
+                title: "Share GHF Express",
+                text: "Hey, check out the fastest way to get into GHF!",
+                url: "https://apps.apple.com/us/app/ghf-express/id6737064794",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 </script>
 
 <div class="relative w-screen h-screen bg-navy-900 text-white select-none">
@@ -155,6 +168,9 @@
     <div class="z-50 relative h-screen flex justify-between flex-col">
         <header class="flex flex-col gap-10 justify-center py-24 -mb-14">
             <h1 class="font-bold text-3xl text-center">GHF Express</h1>
+            <button aria-label="share" onclick={shareApp} class="w-12 h-12 flex items-center justify-center bg-navy-800 active:bg-navy-600 rounded-full absolute right-6 top-14 active:scale-95 transform ease-out touch-manipulation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fill-white h-6 w-auto"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+            </button>
         </header>
 
         {#if displayBarcode}
