@@ -11,7 +11,6 @@
     import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
     import { App } from "@capacitor/app";
 
-
     const initialBarcode = "";
     const emptyBarcodeChar = "•";
     let appVersion: string = $state("");
