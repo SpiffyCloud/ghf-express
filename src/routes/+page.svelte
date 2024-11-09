@@ -8,7 +8,9 @@
     import { tick, onMount } from "svelte";
     import { SplashScreen } from "@capacitor/splash-screen";
     import { Preferences } from "@capacitor/preferences";
+    import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
     import { App } from "@capacitor/app";
+
 
     const initialBarcode = "";
     const emptyBarcodeChar = "•";
@@ -106,6 +108,33 @@
             console.error(error);
         }
     }
+
+    async function deleteBarcode() {
+        await Preferences.clear();
+        barcode = initialBarcode;
+        displayBarcode = false;
+        position = 0;
+    }
+
+    async function showDeleteDialog() {
+        const result = await ActionSheet.showActions({
+            title: "Are you sure you want to delete your barcode?",
+            options: [
+                {
+                    title: "Delete Barcode",
+                    style: ActionSheetButtonStyle.Destructive,
+                },
+                {
+                    title: "Cancel",
+                    style: ActionSheetButtonStyle.Cancel,
+                },
+            ],
+        });
+
+        if (result.index === 0) {
+            await deleteBarcode();
+        }
+    }
 </script>
 
 <div class="relative w-screen h-screen bg-navy-900 text-white select-none">
@@ -134,7 +163,7 @@
             <div class="bg-white mx-auto rounded-2xl p-2">
                 <svg id="barcode"></svg>
             </div>
-            <div class="flex justify-center gap-6 mt-4">
+            <div class="flex justify-between items-center mx-auto w-[304px] mt-4">
                 <!-- Edit button -->
                 <button onclick="{() => displayBarcode = false}" aria-label="edit barcode" class="active:scale-95 transform ease-out touch-manipulation w-36 py-4 px-4 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600">
                     <svg class="h-4 w-auto" viewBox="0 0 200 201" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +172,7 @@
                     Edit
                 </button>
                 <!-- Delete button -->
-                <button onclick="{() => {displayBarcode = false; barcode = initialBarcode; position = 0;}}" aria-label="delete barcode" class="active:scale-95 transform ease-out touch-manipulation w-36 py-4 px-6 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600">
+                <button onclick={showDeleteDialog} aria-label="delete barcode" class="active:scale-95 transform ease-out touch-manipulation w-36 py-4 px-6 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600">
                     <svg class="h-4 w-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                         <path class="fill-white" d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
                     </svg>

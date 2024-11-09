@@ -1,6 +1,8 @@
 PODS:
   - Capacitor (6.1.2):
     - CapacitorCordova
+  - CapacitorActionSheet (6.0.2):
+    - Capacitor
   - CapacitorApp (6.0.1):
     - Capacitor
   - CapacitorCommunityFirebaseAnalytics (6.0.0):
@@ -96,6 +98,7 @@ PODS:
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorActionSheet (from `../../node_modules/@capacitor/action-sheet`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCommunityFirebaseAnalytics (from `../../node_modules/@capacitor-community/firebase-analytics`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
@@ -116,6 +119,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Capacitor:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorActionSheet:
+    :path: "../../node_modules/@capacitor/action-sheet"
   CapacitorApp:
     :path: "../../node_modules/@capacitor/app"
   CapacitorCommunityFirebaseAnalytics:
@@ -129,6 +134,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: 679f9673fdf30597493a6362a5d5bf233d46abc2
+  CapacitorActionSheet: 66633b06ada3a8f98f8f3f4a61c8f7171695ab8d
   CapacitorApp: 0bc633b4eae40a1f32cd2834788fad3bc42da6a1
   CapacitorCommunityFirebaseAnalytics: dd31faa0a3e6f4d00624080ee5b9439b484cd092
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
@@ -143,6 +149,6 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
 
-PODFILE CHECKSUM: 7b8a69df816b5ba80df96e50fd7bbd70af640b32
+PODFILE CHECKSUM: d655e8fe6e9104b67647526c72dc2dd920fb264d
 
-COCOAPODS: 1.16.0
+COCOAPODS: 1.15.2
