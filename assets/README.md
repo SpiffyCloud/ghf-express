@@ -12,10 +12,10 @@ npm install @capacitor/assets --save-dev
 
 ## 2. Prepare Your Source Images
 
-Place your source images inside the `resources` folder with the following structure:
+Place your source images inside the `assets` folder with the following structure:
 
 ```
-resources/
+assets/
 ├── icon-only.png          # Icon image (1024px x 1024px minimum)
 ├── icon-foreground.png    # (optional) Foreground image for adaptive icons
 ├── icon-background.png    # (optional) Background image for adaptive icons
