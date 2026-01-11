@@ -1,3 +1,38 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
+
+*.log
+log.txt
+npm-debug.log*
+
+/.idea
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/.vscode/*
+!/.vscode/extensions.json
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
+
+# Legacy ignores
+
 # Development
 .vscode/
 
@@ -9,6 +44,7 @@ node_modules
 .vercel
 /.svelte-kit
 /build
+/dist
 
 # OS
 .DS_Store
@@ -23,3 +59,7 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Cypress artifacts
+tests/e2e/screenshots/
+tests/e2e/videos/

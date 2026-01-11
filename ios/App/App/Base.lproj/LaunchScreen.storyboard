@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_72" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,42 +12,16 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Imd-m9-cXm">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                    <view key="view" contentMode="scaleToFill" id="ipT-6P-UOO">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-detail" translatesAutoresizingMaskIntoConstraints="NO" id="3nj-jI-N6f">
-                                <rect key="frame" x="0.0" y="0.0" width="337" height="207"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="3nj-jI-N6f" secondAttribute="height" multiplier="337:207" id="cBd-75-Lxg"/>
-                                </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-detail-2" translatesAutoresizingMaskIntoConstraints="NO" id="rYN-xg-YBG">
-                                <rect key="frame" x="81" y="744" width="349" height="188"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="rYN-xg-YBG" secondAttribute="height" multiplier="349:188" id="yxi-l3-qMM"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Ibk-XR-Swm"/>
-                        <color key="backgroundColor" red="0.035294117647058823" green="0.20784313725490194" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="rYN-xg-YBG" firstAttribute="trailing" secondItem="Ibk-XR-Swm" secondAttribute="trailing" id="5GW-uS-Acp"/>
-                            <constraint firstItem="Ibk-XR-Swm" firstAttribute="trailing" secondItem="3nj-jI-N6f" secondAttribute="trailing" constant="93" id="ASc-wj-txZ"/>
-                            <constraint firstItem="3nj-jI-N6f" firstAttribute="leading" secondItem="Ibk-XR-Swm" secondAttribute="leading" id="d9r-CF-Z3K"/>
-                            <constraint firstAttribute="bottom" secondItem="rYN-xg-YBG" secondAttribute="bottom" id="fmg-Gk-XVW"/>
-                            <constraint firstItem="rYN-xg-YBG" firstAttribute="leading" secondItem="Ibk-XR-Swm" secondAttribute="leading" constant="81" id="ro8-e4-scr"/>
-                            <constraint firstItem="3nj-jI-N6f" firstAttribute="top" secondItem="Imd-m9-cXm" secondAttribute="top" id="yWW-aG-NuG"/>
-                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="c5D-Sz-Qfl"/>
+                        <color key="backgroundColor" red="0.035294117647058823" green="0.20784313725490194" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="51.627906976744185" y="374.03433476394855"/>
+            <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="launch-detail" width="880" height="540"/>
-        <image name="launch-detail-2" width="924" height="496"/>
-    </resources>
 </document>

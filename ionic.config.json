@@ -1,0 +1,7 @@
+{
+  "name": "ghf-express",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
