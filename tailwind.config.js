@@ -5,11 +5,7 @@ const MEDIUM = "#04387C";
 const LIGHT = "#0046AD";
 
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "./server-side/partials/**/*.html",
-  ],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {

@@ -1,13 +1,14 @@
 # GHF Express
 
-GHF Express is a simple mobile app built with **Ionic Vue (Vue 3 + Vite)** and **Capacitor 8**. It stores your Gainesville Health & Fitness (GHF) membership ID and renders a barcode for quick entry.
+GHF Express is a simple mobile app built with **Ionic Vue 8 (Vue 3.x)**. It stores your Gainesville Health & Fitness (GHF) membership ID and renders a barcode for quick entry.
 
 This app is not affiliated with GHF and is for personal use only.
 
 ## Tech Stack
 
-- Ionic Vue 8 + Vue 3
-- Capacitor 8 (`@capacitor/*` pinned to `8.0.0`)
+- Ionic Vue 8 (Vue 3.x)
+- Capacitor 8 for native iOS support
+- Vite (web dev/build)
 - TailwindCSS for styling
 - Barcode rendering via `jsbarcode` (Code39 SVG)
 
@@ -87,7 +88,7 @@ npx cap open ios
 
 - Unit tests: `npm run test:unit`
 - E2E tests (Cypress): `npm run test:e2e`
-- Lint: `npm run lint`
+- Lint: `npm run lint` (ESLint v9 flat config via `eslint.config.js`)
 
 ## Notes
 

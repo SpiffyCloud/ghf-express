@@ -1,47 +1,51 @@
-# Copilot Instructions
+# Copilot instructions (ghf-express)
 
-## Project Map
+## Big picture
+- Ionic Vue 8 (Vue 3) app built with Vite and packaged for iOS via Capacitor 8.
+- Single-route app: router redirects `/` → `/home` and renders `src/views/HomePage.vue`.
+- Web + native share the same built assets: Capacitor `webDir` is `dist` (see `capacitor.config.ts`).
 
-- Active app is **Ionic Vue (Vue 3 + Vite) + Capacitor 8**. Entry is [src/main.ts](../src/main.ts), which bootstraps IonicVue, initializes PWA Elements (for web plugin UIs), and mounts routes via [src/router/index.ts](../src/router/index.ts).
+## Core feature flow (barcode)
+- Membership ID is a **6-digit string** stored under `Preferences` key `barcode` (see `loadStoredBarcode()` / `saveBarcode()` in `src/views/HomePage.vue`).
+- Barcode rendering uses `jsbarcode` into `<svg id="barcode">` with `format: 'CODE39'`, then post-processes SVG `<rect>` nodes to add rounded corners.
+- Delete resets via `Preferences.clear()` (wipes all preference keys, not just `barcode`) and always resets the UI in a `finally` block.
 
-- Primary screen is `/home`, implemented in [src/views/HomePage.vue](../src/views/HomePage.vue) (membership ID entry, barcode rendering, share, edit/delete, etc.).
+## Capacitor plugin conventions
+- Destructive actions use Capacitor `ActionSheet.showActions(...)`, with a web/plugin-missing fallback to `window.confirm(...)`.
+- Web plugin UI elements are enabled by `defineCustomElements(window)` in `src/main.ts` (needed for consistent ActionSheet UI in the browser).
 
-- Native projects live in [ios](../ios) (and/or Android if added).
+## Styling + UI conventions
+- Most UI is Tailwind-first (utility classes) rather than Ionic components.
+- Tailwind has custom `navy` colors and a `blink` animation (see `tailwind.config.js`).
+- Global font is set via Ionic variables (see `src/theme/variables.css`).
 
-- Platform collateral is sourced from [resources](../resources) with generation steps documented in [assets/README.md](../assets/README.md); keep filenames consistent with Capacitor expectations.
+## Project conventions
+- ESM project (`"type": "module"` in `package.json`).
+- Strict TypeScript; path alias `@` → `src` (see `vite.config.ts` and `tsconfig.json`).
 
-## Key Workflows
+## Dev workflows
+- Dev server: `npm run dev` (Vite on `http://localhost:5173`, strict port).
+- Build: `npm run build` (runs `vue-tsc` then `vite build`).
+- iOS workflow after changing web code: `npm run build && npx cap sync ios`.
+- Run/open iOS: `npx cap run ios` or `npx cap open ios`.
 
-- Install deps with `npm install`, then run `npm run dev` for the web preview; Vite dev server is `http://localhost:5173`, matching [cypress.config.ts](../cypress.config.ts).
+## Tests (keep selectors stable)
+- Unit: `npm run test:unit` (Vitest + jsdom; configured in `vite.config.ts`).
+- E2E: `npm run test:e2e` (Cypress via `start-server-and-test`, baseUrl `http://localhost:5173`).
+- On web, `@capacitor/preferences` persists via browser storage; Cypress resets state with `cy.clearLocalStorage()` (see `tests/e2e/specs/barcode-flow.cy.ts`).
+- Prefer stable selectors already used in tests: `#barcode`, `button.key`, and `aria-label` attributes (see `tests/unit/home-page.spec.ts` and `tests/e2e/specs/barcode-flow.cy.ts`).
+- When unit testing, mock Capacitor plugins and `jsbarcode` using `vi.mock(...)` (see `tests/unit/home-page.spec.ts`).
 
-- Production builds require `npm run build` (runs `vue-tsc` then `vite build`) and `npx cap sync ios` so Capacitor copies the `dist` output defined in [capacitor.config.ts](../capacitor.config.ts).
+## Common edits
+- Share link/copy: update `shareApp()` in `src/views/HomePage.vue` (App Store URL + text).
+- Preference storage key/shape: `Preferences.get/set({ key: 'barcode' })` in `src/views/HomePage.vue` (tests assume 6 digits).
+- Theme colors/animation: `tailwind.config.js` (`navy` palette + `blink`) and `src/theme/variables.css` (global font).
+- App version shown in UI: `App.getInfo().version` in `src/views/HomePage.vue` (comes from native project/Xcode settings).
+- iOS config sync points: `capacitor.config.ts` (`appId`, `appName`, `webDir`) and `ios/App/App/capacitor.config.json` (`packageClassList`).
+- Privacy policy copy/date: `docs/privacy.md`.
 
-- Use `npx cap run ios` or `npx cap open ios` after syncing when you need to test native behavior or tweak Xcode-specific assets.
+## Native/3rd-party integrations
+- Firebase Analytics is configured natively (see `ios/App/App/capacitor.config.json` `packageClassList` and `ios/App/App/GoogleService-Info.plist`); there is no JS-side analytics initialization in `src/`.
 
-- Unit tests run with `npm run test:unit` (Vitest + Vue Test Utils) and live in [tests/unit](../tests/unit); E2E specs live in [tests/e2e/specs](../tests/e2e/specs) and execute through `npm run test:e2e`.
-
-- `npm run lint` enforces ESLint + eslint-plugin-vue defaults; run it before opening PRs to keep CI clean.
-
-## Patterns & Conventions
-
-- Prefer Ionic components (`IonPage`, `IonContent`, etc.) for screen scaffolding as shown in [src/views/HomePage.vue](../src/views/HomePage.vue).
-
-- Route additions go through [src/router/index.ts](../src/router/index.ts); use the existing alias `@` from [vite.config.ts](../vite.config.ts) for cleaner imports.
-
-- Barcode features: persist IDs via `@capacitor/preferences`, render Code39 SVGs via `jsbarcode`, and keep the UI behavior stable across web + native.
-
-- Web implementations of certain Capacitor plugin UIs (e.g. ActionSheet) rely on `@ionic/pwa-elements`; initialization happens in [src/main.ts](../src/main.ts).
-
-- Privacy and policy text for store submissions is sourced from [docs/privacy.md](../docs/privacy.md); update it alongside in-app copy to avoid compliance drift.
-
-## Reference Material
-
-- Root [README.md](../README.md) documents the current Vue + Capacitor 8 workflow; scripts are authoritative in [package.json](../package.json).
-
-- Use [tests/e2e/specs/test.cy.ts](../tests/e2e/specs/test.cy.ts) and [tests/unit/example.spec.ts](../tests/unit/example.spec.ts) as patterns.
-
-- iOS-specific resources live under [ios](../ios).
-
-- Keep SVG + Tailwind-heavy layouts from the legacy screen handy—they capture the product voice and can be transplanted into Vue templates with `<IonContent>` wrappers.
-
-- Store reusable Capacitor or UI helpers inside feature folders (e.g. `src/features/...`) to keep tree depth shallow until the app grows.
+## Avoid editing generated output
+- Don’t hand-edit `dist/`, `ios/DerivedData/`, or `node_modules/` unless explicitly required.

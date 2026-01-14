@@ -1,27 +1,31 @@
 <template>
   <ion-page>
-    <ion-content :fullscreen="true">
-      <div class="relative w-screen h-screen bg-navy-900 text-white select-none">
-        <div class="absolute top-0 left-0 max-w-[75vw] max-h-[25vh]" aria-hidden="true">
+    <ion-content :fullscreen="true" :scroll-y="false">
+      <div class="relative w-full bg-navy-900 text-white select-none">
+
+        <!-- Background visuals -->
+        <div class="absolute top-0 left-0 max-w-[75vw] max-h-[25vh]">
           <svg viewBox="0 0 881 540" fill="none" class="w-full" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.759426 0L0.759399 540C487.417 540 755.777 370 880.759 0.000136538L0.759426 0Z" class="fill-navy-800" />
             <path d="M0.759426 0L0.75946 436C316.378 338.808 490.665 203.467 578.759 0.000106021L0.759426 0Z" class="fill-navy-600" />
           </svg>
         </div>
-        <div class="absolute bottom-0 right-0 max-w-[75vw] max-h-[25vh]" aria-hidden="true">
+
+        <div class="absolute bottom-0 right-0 max-w-[75vw] max-h-[25vh]">
           <svg viewBox="0 0 925 496" fill="none" class="w-full" xmlns="http://www.w3.org/2000/svg">
             <path d="M924.128 496V0C413.138 0 131.36 156.148 0.128174 496H924.128Z" class="fill-navy-800" />
             <path d="M924.128 496V95C587.892 95 402.48 221.241 316.128 496H924.128Z" class="fill-navy-600" />
           </svg>
         </div>
 
-        <div class="z-50 relative h-screen flex justify-between flex-col">
-          <header class="flex flex-col gap-10 justify-center py-24 -mb-14">
+        <!-- Main content -->
+        <div class="relative z-10 min-h-[100dvh] flex flex-col justify-between">
+          <header class="flex flex-col gap-10 py-24 -mb-14">
             <h1 class="font-bold text-3xl text-center">GHF Express</h1>
             <button
               aria-label="share"
               @click="shareApp"
-              class="flex gap-2 px-4 py-2 text-xs items-center justify-center bg-navy-800 active:bg-navy-600 rounded-full mx-auto active:scale-95 transform ease-out touch-manipulation"
+              class="flex gap-2 px-4 py-2 text-xs items-center justify-center bg-navy-800 active:bg-navy-600 rounded-full mx-auto active:scale-95 touch-manipulation"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fill-white h-3 w-auto">
                 <path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z" />
@@ -34,11 +38,11 @@
             <div class="bg-white mx-auto rounded-2xl p-2">
               <svg id="barcode"></svg>
             </div>
-            <div class="grid grid-cols-2 gap-4 items-center mx-auto w-[304px] max-w-[calc(100vw-3rem)] mt-4">
+            <div class="grid grid-cols-2 gap-4 mx-auto w-[304px] max-w-[calc(100vw-3rem)] mt-4">
               <button
-                @click="editBarcode"
                 aria-label="edit barcode"
-                class="active:scale-95 transform ease-out touch-manipulation w-full py-4 px-4 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600 whitespace-nowrap"
+                @click="editBarcode"
+                class="active:scale-95 touch-manipulation py-4 px-4 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600 whitespace-nowrap"
               >
                 <svg class="h-4 w-auto" viewBox="0 0 200 201" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -49,9 +53,9 @@
                 Edit
               </button>
               <button
-                @click="showDeleteDialog"
                 aria-label="delete barcode"
-                class="active:scale-95 transform ease-out touch-manipulation w-full py-4 px-6 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600 whitespace-nowrap"
+                @click="showDeleteDialog"
+                class="active:scale-95 touch-manipulation py-4 px-6 flex justify-center items-center gap-2 rounded-xl bg-navy-800 active:bg-navy-600 whitespace-nowrap"
               >
                 <svg class="h-4 w-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                   <path
@@ -64,7 +68,7 @@
             </div>
             <footer class="py-10 text-center">
               <a class="flex flex-col items-center gap-2 text-xs" href="https://github.com/SpiffyCloud/ghf-express" target="_blank">
-                <svg viewBox="0 0 1018 742" class="w-9 block mb-0.5 overflow-visible" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 1018 742" class="w-9" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -83,7 +87,8 @@
 
           <template v-else>
             <p class="text-center pb-4">Enter your membership ID</p>
-            <div class="flex flex-row gap-2 justify-center w-full">
+
+            <div class="flex gap-2 justify-center">
               <button
                 v-for="(char, idx) in barcodeChars"
                 :key="idx"
@@ -97,39 +102,41 @@
               </button>
             </div>
 
-            <div class="bg-navy-900/40 backdrop-blur-sm w-full grid grid-cols-3 gap-2 px-6 pt-6 pb-10">
+            <div class="bg-navy-900/40 backdrop-blur-sm grid grid-cols-3 gap-2 p-6 pb-10">
               <button
                 v-for="n in 9"
                 :key="n"
-                class="key justify-stretch p-4 rounded-md text-2xl font-bold bg-navy-600 active:scale-90 active:bg-navy-800 transform ease-out touch-manipulation"
+                class="key p-4 rounded-md text-2xl font-bold bg-navy-600 active:scale-90 active:bg-navy-800 touch-manipulation"
                 @click="updateBarcode(n.toString())"
               >
                 {{ n }}
               </button>
 
               <button
-                class="fill-white p-4 rounded-md active:scale-90 active:bg-navy-800 transform ease-out touch-manipulation disabled:opacity-50 disabled:pointer-events-none"
+                class="fill-white p-4 rounded-md flex items-center justify-center active:scale-90 active:bg-navy-800 touch-manipulation disabled:opacity-50 disabled:pointer-events-none"
                 aria-label="backspace"
                 :disabled="cannotBackspace"
                 @click="deleteDigitFromBarcode"
               >
-                <svg class="w-6 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                   <path d="M576 128c0-35.3-28.7-64-64-64L205.3 64c-17 0-33.3 6.7-45.3 18.7L9.4 233.4c-6 6-9.4 14.1-9.4 22.6s3.4 16.6 9.4 22.6L160 429.3c12 12 28.3 18.7 45.3 18.7L512 448c35.3 0 64-28.7 64-64l0-256zM271 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
                 </svg>
               </button>
+
               <button
-                class="key justify-stretch p-4 rounded-md text-2xl font-bold bg-navy-600 active:scale-90 active:bg-navy-800 transform ease-out touch-manipulation"
+                class="key p-4 rounded-md text-2xl font-bold bg-navy-600 active:scale-90 active:bg-navy-800 touch-manipulation"
                 @click="updateBarcode('0')"
               >
                 0
               </button>
+
               <button
-                class="fill-white p-4 rounded-md active:scale-90 active:bg-navy-800 transform ease-out touch-manipulation disabled:pointer-events-none disabled:opacity-50"
+                class="fill-white p-4 rounded-md flex items-center justify-center active:scale-90 active:bg-navy-800 touch-manipulation disabled:pointer-events-none disabled:opacity-50"
                 aria-label="save"
                 :disabled="!isValidBarcode"
                 @click="saveBarcode"
               >
-                <svg class="w-6 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                   <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
                 </svg>
               </button>
@@ -146,7 +153,6 @@ import { ActionSheet, ActionSheetButtonStyle } from '@capacitor/action-sheet';
 import { App } from '@capacitor/app';
 import { Preferences } from '@capacitor/preferences';
 import { Share } from '@capacitor/share';
-import { SplashScreen } from '@capacitor/splash-screen';
 import { IonContent, IonPage } from '@ionic/vue';
 import JsBarcode from 'jsbarcode';
 import { computed, nextTick, onMounted, ref } from 'vue';
@@ -168,7 +174,6 @@ const cannotBackspace = computed(() => position.value === 0 && barcodeChars.valu
 onMounted(async () => {
   await loadStoredBarcode();
   await loadAppVersion();
-  await hideSplash();
 });
 
 async function loadStoredBarcode() {
@@ -186,16 +191,8 @@ async function loadAppVersion() {
   try {
     const { version } = await App.getInfo();
     appVersion.value = version;
-  } catch (error) {
+  } catch {
     appVersion.value = '?.?.?';
-  }
-}
-
-async function hideSplash() {
-  try {
-    await SplashScreen.hide();
-  } catch (error) {
-    // ignore
   }
 }
 
@@ -247,7 +244,7 @@ async function renderBarcode() {
         rect.setAttribute('ry', '2');
       });
     }
-  } catch (error) {
+  } catch {
     displayBarcode.value = false;
   }
 }
@@ -255,7 +252,7 @@ async function renderBarcode() {
 async function deleteBarcode() {
   try {
     await Preferences.clear();
-  } catch (error) {
+  } catch {
     // Ignore storage failures (web/private mode/etc) and still reset UI.
   } finally {
     barcode.value = emptyChar.repeat(BARCODE_LENGTH);
@@ -284,7 +281,7 @@ async function showDeleteDialog() {
     if (result.index === 0) {
       await deleteBarcode();
     }
-  } catch (error) {
+  } catch {
     // Fallback if plugin is unavailable/misconfigured.
     if (window.confirm(title)) {
       await deleteBarcode();
@@ -299,7 +296,7 @@ async function shareApp() {
       text: 'Hey, check out the fastest way to get into GHF!',
       url: 'https://apps.apple.com/us/app/ghf-express/id6737064794',
     });
-  } catch (error) {
+  } catch {
     // ignore
   }
 }
