@@ -3,35 +3,33 @@
     <ion-content :fullscreen="true" :scroll-y="false">
       <BackgroundVisuals />
 
-      <div
-        class="relative z-10 flex flex-col items-center justify-between h-full"
-      >
-        <div class="flex flex-col items-center pt-10 gap-6">
+      <div class="page-shell">
+        <div class="page-header">
           <h1>GHF Express</h1>
 
           <ion-button
             color="primary"
             aria-label="share app"
             @click="shareApp"
-            class="w-fit"
+            class="share-button"
           >
             <ion-icon slot="start" :icon="share"></ion-icon>
-            <span class="pl-1.5 font-bold">Share App</span>
+            <span class="share-button-text">Share App</span>
           </ion-button>
         </div>
 
         <template v-if="displayBarcode">
-          <div class="bg-white mx-auto rounded-2xl p-2">
+          <div class="barcode-card">
             <svg id="barcode"></svg>
           </div>
-          <div class="grid grid-cols-2 gap-4 px-10 w-full">
+          <div class="barcode-actions">
             <ion-button
               color="secondary"
               aria-label="edit barcode"
               @click="editBarcode"
             >
               <ion-icon slot="start" :icon="create"></ion-icon>
-              <span class="pl-1.5 font-bold">Edit</span>
+              <span class="action-button-text">Edit</span>
             </ion-button>
             <ion-button
               color="secondary"
@@ -39,45 +37,43 @@
               @click="showDeleteDialog"
             >
               <ion-icon slot="start" :icon="trash"></ion-icon>
-              <span class="pl-1.5 font-bold">Delete</span>
+              <span class="action-button-text">Delete</span>
             </ion-button>
           </div>
-          <footer class="text-center ion-padding-bottom">
+          <footer class="ion-text-center ion-padding-bottom">
             <SpiffyLink />
-            <p class="py-3 text-xs">v{{ appVersion }}</p>
+            <p class="app-version">v{{ appVersion }}</p>
           </footer>
         </template>
 
         <template v-else>
-          <p class="text-center">Enter your membership ID</p>
+          <p class="ion-text-center">Enter your membership ID</p>
 
-          <div class="flex gap-2 justify-center">
+          <div class="barcode-input">
             <button
               v-for="(char, idx) in barcodeChars"
               :key="idx"
               type="button"
               aria-label="id number"
-              class="focus:bg-navy-600 focus:animate-blink bg-navy-800 outline-none text-4xl font-bold py-4! w-12 text-center rounded-lg!"
+              class="barcode-digit"
               :class="{
-                'text-white/30': char === emptyChar,
-                'animate-blink': idx === position,
+                'barcode-digit-empty': char === emptyChar,
+                'barcode-digit-active': idx === position,
               }"
               @click="position = idx"
             >
               {{ char }}
             </button>
           </div>
-          <div class="bg-navy-900/40 backdrop-blur-sm w-full">
-            <div
-              class="grid grid-cols-3 gap-2 w-full ion-padding-horizontal pb-10"
-            >
+          <div class="keypad-panel">
+            <div class="keypad-grid">
               <ion-button
                 v-for="n in 9"
                 :key="n"
                 @click="updateBarcode(n.toString())"
                 color="tertiary"
               >
-                <span class="font-bold text-2xl py-1">{{ n }}</span>
+                <span class="keypad-digit">{{ n }}</span>
               </ion-button>
 
               <IconButton
@@ -93,7 +89,7 @@
               </IconButton>
 
               <ion-button color="tertiary" @click="updateBarcode('0')">
-                <span class="font-bold text-2xl py-1">0</span>
+                <span class="keypad-digit">0</span>
               </ion-button>
 
               <IconButton
@@ -102,7 +98,7 @@
                 @click="saveBarcode"
               >
                 <svg
-                  class="w-6 fill-white"
+                  class="save-icon"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
                 >
@@ -299,3 +295,125 @@ function replaceChar(source: string, index: number, value: string) {
   return source.slice(0, index) + value + source.slice(index + 1);
 }
 </script>
+
+<style scoped>
+.page-shell {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2.5rem;
+  gap: 1.5rem;
+}
+
+.share-button {
+  width: fit-content;
+}
+
+.share-button-text,
+.action-button-text,
+.keypad-digit {
+  font-weight: 700;
+}
+
+.share-button-text,
+.action-button-text {
+  padding-left: 0.375rem;
+}
+
+.barcode-card {
+  background: #ffffff;
+  margin: 0 auto;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.barcode-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0 2.5rem;
+  width: 100%;
+}
+
+.app-version {
+  padding: 0.75rem 0;
+  font-size: 0.75rem;
+}
+
+.barcode-input {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.barcode-digit {
+  background: var(--ion-color-secondary);
+  outline: none;
+  font-size: 2.25rem;
+  font-weight: 700;
+  padding: 1rem 0;
+  width: 3rem;
+  text-align: center;
+  border-radius: 0.75rem;
+  border: none;
+  color: #ffffff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.barcode-digit:focus {
+  background: var(--ion-color-tertiary);
+}
+
+.barcode-digit-empty {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.barcode-digit-active {
+  animation: blink 1.2s infinite;
+}
+
+.keypad-panel {
+  background: rgba(9, 53, 101, 0.4);
+  backdrop-filter: blur(6px);
+  width: 100%;
+}
+
+.keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 1rem 2.5rem;
+}
+
+.keypad-digit {
+  font-size: 1.5rem;
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+
+.save-icon {
+  width: 1.5rem;
+  fill: #ffffff;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    background-color: var(--ion-color-secondary);
+  }
+  50% {
+    background-color: var(--ion-color-tertiary);
+  }
+}
+</style>
