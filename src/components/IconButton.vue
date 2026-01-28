@@ -34,6 +34,7 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   touch-action: manipulation;
   background: transparent;
   border: none;
@@ -48,5 +49,6 @@ const emit = defineEmits<{
 .icon-button:disabled {
   pointer-events: none;
   opacity: 0.4;
+  cursor: default;
 }
 </style>

@@ -28,7 +28,7 @@
         fill="white"
       />
     </svg>
-    <span class="spiffy-link-text">a spiffycloud project</span>
+    <span>a spiffycloud project</span>
   </a>
 </template>
 
@@ -47,7 +47,4 @@
   width: 2rem;
 }
 
-.spiffy-link-text {
-  color: var(--ion-text-color);
-}
 </style>

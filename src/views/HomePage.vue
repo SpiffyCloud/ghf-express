@@ -348,6 +348,7 @@ function replaceChar(source: string, index: number, value: string) {
 .app-version {
   padding: 0.75rem 0;
   font-size: 0.75rem;
+  line-height: 1.5;
 }
 
 .barcode-input {
@@ -367,6 +368,7 @@ function replaceChar(source: string, index: number, value: string) {
   border-radius: 0.75rem;
   border: none;
   color: var(--ion-color-secondary-contrast);
+  cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
