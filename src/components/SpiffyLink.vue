@@ -39,7 +39,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
-  color: #ffffff;
+  color: var(--ion-text-color);
   text-decoration: none;
 }
 
@@ -48,6 +48,6 @@
 }
 
 .spiffy-link-text {
-  color: #ffffff;
+  color: var(--ion-text-color);
 }
 </style>

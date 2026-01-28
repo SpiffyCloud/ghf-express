@@ -366,7 +366,7 @@ function replaceChar(source: string, index: number, value: string) {
   text-align: center;
   border-radius: 0.75rem;
   border: none;
-  color: #ffffff;
+  color: var(--ion-color-secondary-contrast);
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -375,7 +375,7 @@ function replaceChar(source: string, index: number, value: string) {
 }
 
 .barcode-digit-empty {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(var(--ion-color-secondary-contrast-rgb), 0.3);
 }
 
 .barcode-digit-active {
@@ -383,7 +383,7 @@ function replaceChar(source: string, index: number, value: string) {
 }
 
 .keypad-panel {
-  background: rgba(9, 53, 101, 0.4);
+  background: rgba(var(--ion-color-primary-rgb), 0.4);
   backdrop-filter: blur(6px);
   width: 100%;
 }
@@ -404,7 +404,7 @@ function replaceChar(source: string, index: number, value: string) {
 
 .save-icon {
   width: 1.5rem;
-  fill: #ffffff;
+  fill: var(--ion-color-secondary-contrast);
 }
 
 @keyframes blink {
