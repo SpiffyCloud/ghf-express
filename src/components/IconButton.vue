@@ -1,17 +1,18 @@
 <template>
-  <button
+  <ion-button
     v-bind="$attrs"
-    class="p-4 rounded-xl! flex items-center justify-center active:scale-95 active:bg-navy-800 touch-manipulation disabled:pointer-events-none disabled:opacity-40"
     :aria-label="ariaLabel"
     :disabled="disabled"
     type="button"
     @click="emit('click', $event)"
   >
     <slot></slot>
-  </button>
+  </ion-button>
 </template>
 
 <script setup lang="ts">
+import { IonButton } from "@ionic/vue";
+
 withDefaults(
   defineProps<{
     ariaLabel: string;

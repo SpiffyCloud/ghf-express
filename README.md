@@ -9,7 +9,7 @@ This app is not affiliated with GHF.
 - Ionic Vue 8 (Vue 3.x)
 - Capacitor 8 for native iOS support
 - Vite (web dev/build)
-- TailwindCSS for styling
+- Ionic UI utilities and custom CSS for styling
 - Barcode rendering via `jsbarcode` (Code39 SVG)
 
 ## Prerequisites

@@ -1,10 +1,14 @@
 <template>
   <a
-    class="flex flex-col items-center gap-2 text-xs"
+    class="spiffy-link"
     href="https://github.com/SpiffyCloud/ghf-express"
     target="_blank"
   >
-    <svg viewBox="0 0 1018 742" class="w-8" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 1018 742"
+      class="spiffy-link-logo"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -24,6 +28,23 @@
         fill="white"
       />
     </svg>
-    <span class="text-white">a spiffycloud project</span>
+    <span>a spiffycloud project</span>
   </a>
 </template>
+
+<style scoped>
+.spiffy-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--ion-text-color);
+  text-decoration: none;
+}
+
+.spiffy-link-logo {
+  width: 2rem;
+}
+
+</style>

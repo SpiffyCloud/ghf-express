@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 @font-face {
   font-family: "Menlo";
   src: url(/src/assets/Menlo-Regular.ttf) format("truetype");
@@ -36,7 +34,7 @@
   --ion-color-secondary-rgb: 4, 56, 124;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #0046ad;
+  --ion-color-secondary-shade: #04316d;
   --ion-color-secondary-tint: #1d4c89;
 
   --ion-color-tertiary: #0046ad;
@@ -45,24 +43,6 @@
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
   --ion-color-tertiary-shade: #003e98;
   --ion-color-tertiary-tint: #1a59b5;
-}
-
-@theme {
-  --color-navy-900: #093565;
-  --color-navy-800: #04387c;
-  --color-navy-600: #0046ad;
-
-  --animate-blink: blink 1.2s infinite;
-
-  @keyframes blink {
-    0%,
-    100% {
-      background-color: var(--color-navy-800);
-    }
-    50% {
-      background-color: var(--color-navy-600);
-    }
-  }
 }
 
 ion-content::part(scroll) {
