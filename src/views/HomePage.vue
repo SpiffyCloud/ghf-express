@@ -3,59 +3,79 @@
     <ion-content :fullscreen="true" :scroll-y="false">
       <BackgroundVisuals />
 
-      <div class="page-shell">
-        <div class="page-header">
-          <h1>GHF Express</h1>
+      <div
+        class="ion-display-flex ion-flex-column ion-align-items-center ion-justify-content-between"
+        style="position: relative; z-index: 10; height: 100%;"
+      >
+        <div
+          class="ion-display-flex ion-flex-column ion-align-items-center ion-padding-top"
+          style="--ion-padding: 2.5rem;"
+        >
+          <h1 class="ion-margin-bottom" style="--ion-margin: 1.5rem;">
+            GHF Express
+          </h1>
 
           <ion-button
             color="primary"
             aria-label="share app"
             @click="shareApp"
-            class="share-button"
           >
             <ion-icon slot="start" :icon="share"></ion-icon>
-            <span class="share-button-text">Share App</span>
+            <strong>Share App</strong>
           </ion-button>
         </div>
 
         <template v-if="displayBarcode">
-          <div class="barcode-card">
+          <div
+            class="ion-text-center ion-padding"
+            style="background: var(--ion-color-primary-contrast); border-radius: 1rem; margin: 0 auto;"
+          >
             <svg id="barcode"></svg>
           </div>
-          <div class="barcode-actions">
+          <div
+            class="ion-display-flex ion-justify-content-between ion-padding-horizontal"
+            style="width: 100%;"
+          >
             <ion-button
               color="secondary"
               aria-label="edit barcode"
               @click="editBarcode"
+              class="ion-flex-1 ion-margin-end"
             >
               <ion-icon slot="start" :icon="create"></ion-icon>
-              <span class="action-button-text">Edit</span>
+              <strong>Edit</strong>
             </ion-button>
             <ion-button
               color="secondary"
               aria-label="delete barcode"
               @click="showDeleteDialog"
+              class="ion-flex-1 ion-margin-start"
             >
               <ion-icon slot="start" :icon="trash"></ion-icon>
-              <span class="action-button-text">Delete</span>
+              <strong>Delete</strong>
             </ion-button>
           </div>
           <footer class="ion-text-center ion-padding-bottom">
             <SpiffyLink />
-            <p class="app-version">v{{ appVersion }}</p>
+            <p style="font-size: 0.75rem; line-height: 1.5; padding: 0.75rem 0;">
+              v{{ appVersion }}
+            </p>
           </footer>
         </template>
 
         <template v-else>
           <p class="ion-text-center">Enter your membership ID</p>
 
-          <div class="barcode-input">
+          <div
+            class="ion-display-flex ion-justify-content-center"
+            style="gap: 0.5rem;"
+          >
             <button
               v-for="(char, idx) in barcodeChars"
               :key="idx"
               type="button"
               aria-label="id number"
-              class="barcode-digit"
+              class="barcode-digit ion-text-center"
               :class="{
                 'barcode-digit-empty': char === emptyChar,
                 'barcode-digit-active': idx === position,
@@ -65,21 +85,29 @@
               {{ char }}
             </button>
           </div>
-          <div class="keypad-panel">
-            <div class="keypad-grid">
+          <div
+            style="background: rgba(var(--ion-color-primary-rgb), 0.4); backdrop-filter: blur(6px); width: 100%;"
+          >
+            <div
+              class="ion-display-grid"
+              style="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; width: 100%; padding: 0 1rem 2.5rem;"
+            >
               <ion-button
                 v-for="n in 9"
                 :key="n"
                 @click="updateBarcode(n.toString())"
                 color="tertiary"
+                size="large"
               >
-                <span class="keypad-digit">{{ n }}</span>
+                <strong>{{ n }}</strong>
               </ion-button>
 
               <IconButton
                 ariaLabel="backspace"
                 :disabled="cannotBackspace"
                 @click="deleteDigitFromBarcode"
+                color="tertiary"
+                size="large"
               >
                 <ion-icon
                   slot="icon-only"
@@ -88,19 +116,21 @@
                 ></ion-icon>
               </IconButton>
 
-              <ion-button color="tertiary" @click="updateBarcode('0')">
-                <span class="keypad-digit">0</span>
+              <ion-button color="tertiary" @click="updateBarcode('0')" size="large">
+                <strong>0</strong>
               </ion-button>
 
               <IconButton
                 ariaLabel="save"
                 :disabled="!isValidBarcode"
                 @click="saveBarcode"
+                color="tertiary"
+                size="large"
               >
                 <svg
-                  class="save-icon"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
+                  style="width: 1.5rem; fill: var(--ion-color-secondary-contrast);"
                 >
                   <path
                     d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
@@ -297,50 +327,18 @@ function replaceChar(source: string, index: number, value: string) {
 </script>
 
 <style scoped>
-.page-shell {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.page-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 2.5rem;
-  gap: 1.5rem;
-}
-
 .share-button {
   width: fit-content;
-}
-
-.share-button-text,
-.action-button-text,
-.keypad-digit {
-  font-weight: 700;
-}
-
-.share-button-text,
-.action-button-text {
-  padding-left: 0.375rem;
 }
 
 .barcode-card {
   background: #ffffff;
   margin: 0 auto;
   border-radius: 1rem;
-  padding: 0.5rem;
 }
 
 .barcode-actions {
-  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
   padding: 0 2.5rem;
   width: 100%;
 }
@@ -349,12 +347,6 @@ function replaceChar(source: string, index: number, value: string) {
   padding: 0.75rem 0;
   font-size: 0.75rem;
   line-height: 1.5;
-}
-
-.barcode-input {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
 }
 
 .barcode-digit {
@@ -391,17 +383,9 @@ function replaceChar(source: string, index: number, value: string) {
 }
 
 .keypad-grid {
-  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.5rem;
   width: 100%;
   padding: 0 1rem 2.5rem;
-}
-
-.keypad-digit {
-  font-size: 1.5rem;
-  padding: 0.25rem 0;
-  display: inline-block;
 }
 
 .save-icon {
