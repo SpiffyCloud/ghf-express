@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Menlo";
+  src: url(/src/assets/Menlo-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Menlo";
+  src: url(/src/assets/Menlo-Bold.ttf) format("truetype");
+  font-weight: bold;
+  font-display: swap;
+}
+
+:root,
+:root.ios,
+:root.md {
+  --ion-font-family: "Menlo";
+
+  --ion-background-color: #093565;
+  --ion-background-color-rgb: 9, 53, 101;
+
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+
+  --ion-color-primary: #093565;
+  --ion-color-primary-rgb: 9, 53, 101;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #082f59;
+  --ion-color-primary-tint: #224974;
+
+  --ion-color-secondary: #04387c;
+  --ion-color-secondary-rgb: 4, 56, 124;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #0046ad;
+  --ion-color-secondary-tint: #1d4c89;
+
+  --ion-color-tertiary: #0046ad;
+  --ion-color-tertiary-rgb: 0, 70, 173;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #003e98;
+  --ion-color-tertiary-tint: #1a59b5;
+}
+
+@theme {
+  --color-navy-900: #093565;
+  --color-navy-800: #04387c;
+  --color-navy-600: #0046ad;
+
+  --animate-blink: blink 1.2s infinite;
+
+  @keyframes blink {
+    0%,
+    100% {
+      background-color: var(--color-navy-800);
+    }
+    50% {
+      background-color: var(--color-navy-600);
+    }
+  }
+}
+
+ion-content::part(scroll) {
+  padding-top: 3rem;
+}
+
+ion-content h1 {
+  font-weight: bold;
+  font-size: 1.875rem; /* 3xl */
+  text-align: center;
+}
+
+ion-button.ion-activated {
+  transform: scale(0.95);
+}
